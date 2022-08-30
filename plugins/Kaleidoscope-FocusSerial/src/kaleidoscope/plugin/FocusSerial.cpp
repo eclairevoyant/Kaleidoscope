@@ -78,8 +78,8 @@ EventHandlerResult FocusSerial::afterEachCycle() {
 }
 
 EventHandlerResult FocusSerial::onFocusEvent(const char *command) {
-  const char *cmd_help = PSTR("help");
-  const char *cmd_reset = PSTR("device.reset");
+  const char *cmd_help    = PSTR("help");
+  const char *cmd_reset   = PSTR("device.reset");
   const char *cmd_plugins = PSTR("plugins");
 
   if (isHelp(command))

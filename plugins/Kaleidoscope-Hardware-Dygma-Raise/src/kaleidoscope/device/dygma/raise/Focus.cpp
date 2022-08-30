@@ -34,16 +34,16 @@ namespace raise {
 #endif
 
 EventHandlerResult Focus::onFocusEvent(const char *command) {
-  const char *cmd_version = PSTR("hardware.version");
-  const char *cmd_side_power = PSTR("hardware.side_power");
-  const char *cmd_side_ver = PSTR("hardware.side_ver");
-  const char *cmd_sled_ver = PSTR("hardware.sled_ver");
+  const char *cmd_version      = PSTR("hardware.version");
+  const char *cmd_side_power   = PSTR("hardware.side_power");
+  const char *cmd_side_ver     = PSTR("hardware.side_ver");
+  const char *cmd_sled_ver     = PSTR("hardware.sled_ver");
   const char *cmd_sled_current = PSTR("hardware.sled_current");
-  const char *cmd_layout = PSTR("hardware.layout");
-  const char *cmd_joint = PSTR("hardware.joint");
-  const char *cmd_keyscan = PSTR("hardware.keyscan");
-  const char *cmd_crc_errors = PSTR("hardware.crc_errors");
-  const char *cmd_firmware = PSTR("hardware.firmware");
+  const char *cmd_layout       = PSTR("hardware.layout");
+  const char *cmd_joint        = PSTR("hardware.joint");
+  const char *cmd_keyscan      = PSTR("hardware.keyscan");
+  const char *cmd_crc_errors   = PSTR("hardware.crc_errors");
+  const char *cmd_firmware     = PSTR("hardware.firmware");
   if (::Focus.isHelp(command))
     return ::Focus.printHelp(cmd_version,
                              cmd_side_power,

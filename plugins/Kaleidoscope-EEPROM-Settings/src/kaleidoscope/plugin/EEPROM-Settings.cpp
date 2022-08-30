@@ -165,9 +165,9 @@ EventHandlerResult FocusSettingsCommand::onFocusEvent(const char *command) {
   } sub_command;
 
   const char *cmd_defaultLayer = PSTR("settings.defaultLayer");
-  const char *cmd_isValid = PSTR("settings.valid?");
-  const char *cmd_version = PSTR("settings.version");
-  const char *cmd_crc = PSTR("settings.crc");
+  const char *cmd_isValid      = PSTR("settings.valid?");
+  const char *cmd_version      = PSTR("settings.version");
+  const char *cmd_crc          = PSTR("settings.crc");
 
   if (::Focus.isHelp(command))
     return ::Focus.printHelp(cmd_defaultLayer, cmd_isValid, cmd_version, cmd_crc);
@@ -216,8 +216,8 @@ EventHandlerResult FocusEEPROMCommand::onFocusEvent(const char *command) {
   } sub_command;
 
   const char *cmd_contents = PSTR("eeprom.contents");
-  const char *cmd_free = PSTR("eeprom.free");
-  const char *cmd_erase = PSTR("eeprom.erase");
+  const char *cmd_free     = PSTR("eeprom.free");
+  const char *cmd_erase    = PSTR("eeprom.erase");
 
   if (::Focus.isHelp(command))
     return ::Focus.printHelp(cmd_contents, cmd_free, cmd_erase);

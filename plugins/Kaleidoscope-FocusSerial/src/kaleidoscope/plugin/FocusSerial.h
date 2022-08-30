@@ -37,9 +37,8 @@ class FocusSerial : public kaleidoscope::Plugin {
   static constexpr char SEPARATOR = ' ';
   static constexpr char NEWLINE   = '\n';
 
-  __attribute__((deprecated("bla bla bla")))
-  bool handleHelp(const char *command,
-                  const char *help_message) {
+  __attribute__((deprecated("bla bla bla"))) bool handleHelp(const char *command,
+                                                             const char *help_message) {
     if (!isHelp(command)) return false;
 
     printHelp(help_message);

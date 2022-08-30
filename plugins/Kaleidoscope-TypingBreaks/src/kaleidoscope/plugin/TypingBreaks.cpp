@@ -149,10 +149,10 @@ EventHandlerResult TypingBreaks::onFocusEvent(const char *command) {
   } subCommand;
 
   const char *cmd_idleTimeLimit = PSTR("typingbreaks.idleTimeLimit");
-  const char *cmd_lockTimeOut = PSTR("typingbreaks.lockTimeOut");
-  const char *cmd_lockLength = PSTR("typingbreaks.lockLength");
-  const char *cmd_leftMaxKeys = PSTR("typingbreaks.leftMaxKeys");
-  const char *cmd_rightMaxKeys = PSTR("typingbreaks.rightMaxKeys");
+  const char *cmd_lockTimeOut   = PSTR("typingbreaks.lockTimeOut");
+  const char *cmd_lockLength    = PSTR("typingbreaks.lockLength");
+  const char *cmd_leftMaxKeys   = PSTR("typingbreaks.leftMaxKeys");
+  const char *cmd_rightMaxKeys  = PSTR("typingbreaks.rightMaxKeys");
   if (::Focus.isHelp(command))
     return ::Focus.printHelp(cmd_idleTimeLimit,
                              cmd_lockTimeOut,

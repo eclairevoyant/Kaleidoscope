@@ -224,11 +224,11 @@ EventHandlerResult FocusLEDCommand::onFocusEvent(const char *command) {
   if (!Runtime.has_leds)
     return EventHandlerResult::OK;
 
-  const char *cmd_at = PSTR("led.at");
-  const char *cmd_setAll = PSTR("led.setAll");
-  const char *cmd_mode = PSTR("led.mode");
+  const char *cmd_at         = PSTR("led.at");
+  const char *cmd_setAll     = PSTR("led.setAll");
+  const char *cmd_mode       = PSTR("led.mode");
   const char *cmd_brightness = PSTR("led.brightness");
-  const char *cmd_theme = PSTR("led.theme");
+  const char *cmd_theme      = PSTR("led.theme");
 
   if (::Focus.isHelp(command))
     return ::Focus.printHelp(cmd_at,

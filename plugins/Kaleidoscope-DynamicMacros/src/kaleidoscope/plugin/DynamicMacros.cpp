@@ -215,7 +215,7 @@ EventHandlerResult DynamicMacros::onNameQuery() {
 }
 
 EventHandlerResult DynamicMacros::onFocusEvent(const char *command) {
-  const char *cmd_map = PSTR("macros.map");
+  const char *cmd_map     = PSTR("macros.map");
   const char *cmd_trigger = PSTR("macros.trigger");
 
   if (::Focus.isHelp(command))

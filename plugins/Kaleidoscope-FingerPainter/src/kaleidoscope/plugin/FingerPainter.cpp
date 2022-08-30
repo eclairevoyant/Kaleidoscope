@@ -101,7 +101,7 @@ EventHandlerResult FingerPainter::onFocusEvent(const char *command) {
   } sub_command;
 
   const char *cmd_toggle = PSTR("fingerpainter.toggle");
-  const char *cmd_clear = PSTR("fingerpainter.clear");
+  const char *cmd_clear  = PSTR("fingerpainter.clear");
 
   if (::Focus.isHelp(command))
     return ::Focus.printHelp(cmd_toggle, cmd_clear);

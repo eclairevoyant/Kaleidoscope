@@ -35,13 +35,12 @@ class SideFlash : public kaleidoscope::Plugin {
 
  public:
   EventHandlerResult onFocusEvent(const char *command) {
-    const char *cmd_flash_left = PSTR("hardware.flash_left_side");
-    const char *cmd_flash_right = PSTR("hardware.flash_right_side");
-    const char *cmd_verify_left = PSTR("hardware.verify_left_side");
+    const char *cmd_flash_left   = PSTR("hardware.flash_left_side");
+    const char *cmd_flash_right  = PSTR("hardware.flash_right_side");
+    const char *cmd_verify_left  = PSTR("hardware.verify_left_side");
     const char *cmd_verify_right = PSTR("hardware.verify_right_side");
     if (::Focus.isHelp(command))
-      return ::Focus.printHelp(cmd_flash_left, cmd_flash_right,
-                               cmd_verify_left, cmd_verify_right);
+      return ::Focus.printHelp(cmd_flash_left, cmd_flash_right, cmd_verify_left, cmd_verify_right);
 
     auto sideFlasher           = Runtime.device().sideFlasher();
     uint8_t left_boot_address  = Runtime.device().side.left_boot_address;

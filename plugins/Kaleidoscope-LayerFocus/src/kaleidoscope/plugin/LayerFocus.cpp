@@ -33,11 +33,11 @@ EventHandlerResult LayerFocus::onNameQuery() {
 }
 
 EventHandlerResult LayerFocus::onFocusEvent(const char *command) {
-  const char *cmd_activate = PSTR("layer.activate");
+  const char *cmd_activate   = PSTR("layer.activate");
   const char *cmd_deactivate = PSTR("layer.deactivate");
-  const char *cmd_isActive = PSTR("layer.isActive");
-  const char *cmd_moveTo = PSTR("layer.moveTo");
-  const char *cmd_state = PSTR("layer.state");
+  const char *cmd_isActive   = PSTR("layer.isActive");
+  const char *cmd_moveTo     = PSTR("layer.moveTo");
+  const char *cmd_state      = PSTR("layer.state");
 
   if (::Focus.isHelp(command))
     return ::Focus.printHelp(cmd_activate,
