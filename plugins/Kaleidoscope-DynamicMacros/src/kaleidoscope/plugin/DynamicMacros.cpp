@@ -215,13 +215,13 @@ EventHandlerResult DynamicMacros::onNameQuery() {
 }
 
 EventHandlerResult DynamicMacros::onFocusEvent(const char *command) {
+  const char *cmd_map = PSTR("macros.map");
+  const char *cmd_trigger = PSTR("macros.trigger");
+
   if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("macros.map"), PSTR("macros.trigger"));
+    return ::Focus.printHelp(cmd_map, cmd_trigger);
 
-  if (strncmp_P(command, PSTR("macros."), 7) != 0)
-    return EventHandlerResult::OK;
-
-  if (strcmp_P(command + 7, PSTR("map")) == 0) {
+  if (strcmp_P(command, cmd_map) == 0) {
     if (::Focus.isEOL()) {
       for (uint16_t i = 0; i < storage_size_; i++) {
         uint8_t b;
@@ -240,15 +240,16 @@ EventHandlerResult DynamicMacros::onFocusEvent(const char *command) {
       Runtime.storage().commit();
       macro_count_ = updateDynamicMacroCache();
     }
-  }
-
-  if (strcmp_P(command + 7, PSTR("trigger")) == 0) {
+    return EventHandlerResult::EVENT_CONSUMED;
+  } else if (strcmp_P(command, cmd_trigger) == 0) {
     uint8_t id = 0;
     ::Focus.read(id);
     play(id);
+
+    return EventHandlerResult::EVENT_CONSUMED;
   }
 
-  return EventHandlerResult::EVENT_CONSUMED;
+  return EventHandlerResult::OK;
 }
 
 // public

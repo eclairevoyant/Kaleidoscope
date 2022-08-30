@@ -94,32 +94,32 @@ EventHandlerResult DynamicTapDance::onNameQuery() {
 }
 
 EventHandlerResult DynamicTapDance::onFocusEvent(const char *command) {
-  if (::Focus.isHelp(command))
-    return ::Focus.printHelp("tapdance.map");
+  const char *cmd_map = PSTR("tapdance.map");
 
-  if (strncmp_P(command, PSTR("tapdance."), 9) != 0)
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(cmd_map);
+
+  if (strcmp_P(command, cmd_map) != 0)
     return EventHandlerResult::OK;
 
-  if (strcmp_P(command + 9, PSTR("map")) == 0) {
-    if (::Focus.isEOL()) {
-      for (uint16_t i = 0; i < storage_size_; i += 2) {
-        Key k;
-        Runtime.storage().get(storage_base_ + i, k);
-        ::Focus.send(k);
-      }
-    } else {
-      uint16_t pos = 0;
-
-      while (!::Focus.isEOL()) {
-        Key k;
-        ::Focus.read(k);
-
-        Runtime.storage().put(storage_base_ + pos, k);
-        pos += 2;
-      }
-      Runtime.storage().commit();
-      updateDynamicTapDanceCache();
+  if (::Focus.isEOL()) {
+    for (uint16_t i = 0; i < storage_size_; i += 2) {
+      Key k;
+      Runtime.storage().get(storage_base_ + i, k);
+      ::Focus.send(k);
     }
+  } else {
+    uint16_t pos = 0;
+
+    while (!::Focus.isEOL()) {
+      Key k;
+      ::Focus.read(k);
+
+      Runtime.storage().put(storage_base_ + pos, k);
+      pos += 2;
+    }
+    Runtime.storage().commit();
+    updateDynamicTapDanceCache();
   }
 
   return EventHandlerResult::EVENT_CONSUMED;

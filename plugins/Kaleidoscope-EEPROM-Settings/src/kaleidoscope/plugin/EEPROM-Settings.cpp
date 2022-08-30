@@ -164,22 +164,21 @@ EventHandlerResult FocusSettingsCommand::onFocusEvent(const char *command) {
     GET_CRC,
   } sub_command;
 
+  const char *cmd_defaultLayer = PSTR("settings.defaultLayer");
+  const char *cmd_isValid = PSTR("settings.valid?");
+  const char *cmd_version = PSTR("settings.version");
+  const char *cmd_crc = PSTR("settings.crc");
+
   if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("settings.defaultLayer"),
-                             PSTR("settings.valid?"),
-                             PSTR("settings.version"),
-                             PSTR("settings.crc"));
+    return ::Focus.printHelp(cmd_defaultLayer, cmd_isValid, cmd_version, cmd_crc);
 
-  if (strncmp_P(command, PSTR("settings."), 9) != 0)
-    return EventHandlerResult::OK;
-
-  if (strcmp_P(command + 9, PSTR("defaultLayer")) == 0)
+  if (strcmp_P(command, cmd_defaultLayer) == 0)
     sub_command = DEFAULT_LAYER;
-  else if (strcmp_P(command + 9, PSTR("valid?")) == 0)
+  else if (strcmp_P(command, cmd_isValid) == 0)
     sub_command = IS_VALID;
-  else if (strcmp_P(command + 9, PSTR("version")) == 0)
+  else if (strcmp_P(command, cmd_version) == 0)
     sub_command = GET_VERSION;
-  else if (strcmp_P(command + 9, PSTR("crc")) == 0)
+  else if (strcmp_P(command, cmd_crc) == 0)
     sub_command = GET_CRC;
   else
     return EventHandlerResult::OK;
