@@ -148,12 +148,12 @@ EventHandlerResult TypingBreaks::onFocusEvent(const char *command) {
     RIGHT_MAX,
   } subCommand;
 
-  if (::Focus.handleHelp(command, PSTR("typingbreaks.idleTimeLimit\r\n"
-                                       "typingbreaks.lockTimeOut\r\n"
-                                       "typingbreaks.lockLength\r\n"
-                                       "typingbreaks.leftMaxKeys\r\n"
-                                       "typingbreaks.rightMaxKeys")))
-    return EventHandlerResult::OK;
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(PSTR("typingbreaks.idleTimeLimit"),
+                             PSTR("typingbreaks.lockTimeOut"),
+                             PSTR("typingbreaks.lockLength"),
+                             PSTR("typingbreaks.leftMaxKeys"),
+                             PSTR("typingbreaks.rightMaxKeys"));
 
   if (strncmp_P(command, PSTR("typingbreaks."), 13) != 0)
     return EventHandlerResult::OK;

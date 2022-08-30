@@ -30,8 +30,9 @@ namespace plugin {
 EventHandlerResult FocusHostOSCommand::onFocusEvent(const char *command) {
   const char *cmd = PSTR("hostos.type");
 
-  if (::Focus.handleHelp(command, cmd))
-    return EventHandlerResult::OK;
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(cmd);
+
   if (strcmp_P(command, cmd) != 0)
     return EventHandlerResult::OK;
 

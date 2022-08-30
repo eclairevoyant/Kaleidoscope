@@ -77,18 +77,9 @@ EventHandlerResult FocusSerial::afterEachCycle() {
   return EventHandlerResult::OK;
 }
 
-bool FocusSerial::handleHelp(const char *command,
-                             const char *help_message) {
-  if (strcmp_P(command, PSTR("help")) != 0)
-    return false;
-
-  Runtime.serialPort().println((const __FlashStringHelper *)help_message);
-  return true;
-}
-
 EventHandlerResult FocusSerial::onFocusEvent(const char *command) {
-  if (handleHelp(command, PSTR("help\r\ndevice.reset\r\nplugins")))
-    return EventHandlerResult::OK;
+  if (isHelp(command))
+    return printHelp(PSTR("help"), PSTR("device.reset"), PSTR("plugins"));
 
   if (strcmp_P(command, PSTR("device.reset")) == 0) {
     Runtime.device().rebootBootloader();

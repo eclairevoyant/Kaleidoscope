@@ -35,8 +35,11 @@ class SideFlash : public kaleidoscope::Plugin {
 
  public:
   EventHandlerResult onFocusEvent(const char *command) {
-    if (::Focus.handleHelp(command, PSTR("hardware.flash_left_side\nhardware.flash_right_side\nhardware.verify_left_side\nhardware.verify_right_side")))
-      return EventHandlerResult::OK;
+    if (::Focus.isHelp(command))
+      return ::Focus.printHelp(PSTR("hardware.flash_left_side"),
+                               PSTR("hardware.flash_right_side"),
+                               PSTR("hardware.verify_left_side"),
+                               PSTR("hardware.verify_right_side"));
 
     if (strncmp_P(command, PSTR("hardware."), 9) != 0)
       return EventHandlerResult::OK;

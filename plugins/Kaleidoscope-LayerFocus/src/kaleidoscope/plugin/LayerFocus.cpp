@@ -33,9 +33,12 @@ EventHandlerResult LayerFocus::onNameQuery() {
 }
 
 EventHandlerResult LayerFocus::onFocusEvent(const char *command) {
-  if (::Focus.handleHelp(command, PSTR("layer.activate\r\nlayer.deactivate\r\nlayer.isActive"
-                                       "\r\nlayer.moveTo\r\nlayer.state")))
-    return EventHandlerResult::OK;
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(PSTR("layer.activate"),
+                             PSTR("layer.deactivate"),
+                             PSTR("layer.isActive"),
+                             PSTR("layer.moveTo"),
+                             PSTR("layer.state"));
 
   if (strncmp_P(command, PSTR("layer."), 6) != 0)
     return EventHandlerResult::OK;

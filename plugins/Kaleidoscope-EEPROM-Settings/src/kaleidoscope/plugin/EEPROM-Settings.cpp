@@ -164,8 +164,11 @@ EventHandlerResult FocusSettingsCommand::onFocusEvent(const char *command) {
     GET_CRC,
   } sub_command;
 
-  if (::Focus.handleHelp(command, PSTR("settings.defaultLayer\r\nsettings.valid?\r\nsettings.version\r\nsettings.crc")))
-    return EventHandlerResult::OK;
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(PSTR("settings.defaultLayer"),
+                             PSTR("settings.valid?"),
+                             PSTR("settings.version"),
+                             PSTR("settings.crc"));
 
   if (strncmp_P(command, PSTR("settings."), 9) != 0)
     return EventHandlerResult::OK;
@@ -213,8 +216,10 @@ EventHandlerResult FocusEEPROMCommand::onFocusEvent(const char *command) {
     ERASE,
   } sub_command;
 
-  if (::Focus.handleHelp(command, PSTR("eeprom.contents\r\neeprom.free\r\neeprom.erase")))
-    return EventHandlerResult::OK;
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(PSTR("eeprom.contents"),
+                             PSTR("eeprom.free"),
+                             PSTR("eeprom.erase"));
 
   if (strcmp_P(command, PSTR("eeprom.contents")) == 0)
     sub_command = CONTENTS;

@@ -32,8 +32,8 @@ namespace plugin {
 class FirmwareVersion : public Plugin {
  public:
   EventHandlerResult onFocusEvent(const char *command) {
-    if (::Focus.handleHelp(command, PSTR("version")))
-      return EventHandlerResult::OK;
+    if (::Focus.isHelp(command))
+      return ::Focus.printHelp(PSTR("version"));
 
     if (strcmp_P(command, PSTR("version")) != 0)
       return EventHandlerResult::OK;

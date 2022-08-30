@@ -37,8 +37,27 @@ class FocusSerial : public kaleidoscope::Plugin {
   static constexpr char SEPARATOR = ' ';
   static constexpr char NEWLINE   = '\n';
 
+  __attribute__((deprecated("bla bla bla")))
   bool handleHelp(const char *command,
-                  const char *help_message);
+                  const char *help_message) {
+    if (!isHelp(command)) return false;
+
+    printHelp(help_message);
+    return true;
+  }
+
+  bool isHelp(const char *command) {
+    return strcmp_P(command, PSTR("help")) == 0;
+  }
+
+  EventHandlerResult printHelp() {
+    return EventHandlerResult::OK;
+  }
+  template<typename... Vars>
+  EventHandlerResult printHelp(const char *h1, Vars... vars) {
+    Runtime.serialPort().println((const __FlashStringHelper *)h1);
+    return printHelp(vars...);
+  }
 
   EventHandlerResult sendName(const __FlashStringHelper *name) {
     Runtime.serialPort().print(name);

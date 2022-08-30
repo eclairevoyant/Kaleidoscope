@@ -34,8 +34,17 @@ namespace raise {
 #endif
 
 EventHandlerResult Focus::onFocusEvent(const char *command) {
-  if (::Focus.handleHelp(command, PSTR("hardware.version\r\nhardware.side_power\r\nhardware.side_ver\r\nhardware.sled_ver\r\nhardware.sled_current\r\nhardware.layout\r\nhardware.joint\r\nhardware.keyscan\r\nhardware.crc_errors\r\nhardware.firmware")))
-    return EventHandlerResult::OK;
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(PSTR("hardware.version"),
+                             PSTR("hardware.side_power"),
+                             PSTR("hardware.side_ver"),
+                             PSTR("hardware.sled_ver"),
+                             PSTR("hardware.sled_current"),
+                             PSTR("hardware.layout"),
+                             PSTR("hardware.joint"),
+                             PSTR("hardware.keyscan"),
+                             PSTR("hardware.crc_errors"),
+                             PSTR("hardware.firmware"));
 
   if (strncmp_P(command, PSTR("hardware."), 9) != 0)
     return EventHandlerResult::OK;

@@ -102,8 +102,9 @@ void EEPROMKeymap::dumpKeymap(uint8_t layers, Key (*getkey)(uint8_t, KeyAddr)) {
 }
 
 EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
-  if (::Focus.handleHelp(command, PSTR("keymap.custom\r\nkeymap.default\r\nkeymap.onlyCustom")))
-    return EventHandlerResult::OK;
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(PSTR("keymap.custom"), PSTR("keymap.default"),
+                             PSTR("keymap.onlyCustom"));
 
   if (strncmp_P(command, PSTR("keymap."), 7) != 0)
     return EventHandlerResult::OK;
