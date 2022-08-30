@@ -54,18 +54,18 @@ EventHandlerResult AutoShiftConfig::onFocusEvent(const char *command) {
     CATEGORIES,
   } subCommand;
 
-  if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("autoshift.enabled"),
-                             PSTR("autoshift.timeout"),
-                             PSTR("autoshift.categories"));
+  const char *cmd_enabled = PSTR("autoshift.enabled");
+  const char *cmd_timeout = PSTR("autoshift.timeout");
+  const char *cmd_categories = PSTR("autoshift.categories");
 
-  if (strncmp_P(command, PSTR("autoshift."), 10) != 0)
-    return EventHandlerResult::OK;
-  if (strcmp_P(command + 10, PSTR("enabled")) == 0)
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(cmd_enabled, cmd_timeout, cmd_categories);
+
+  if (strcmp_P(command, cmd_enabled) == 0)
     subCommand = ENABLED;
-  else if (strcmp_P(command + 10, PSTR("timeout")) == 0)
+  else if (strcmp_P(command, cmd_timeout) == 0)
     subCommand = TIMEOUT;
-  else if (strcmp_P(command + 10, PSTR("categories")) == 0)
+  else if (strcmp_P(command, cmd_categories) == 0)
     subCommand = CATEGORIES;
   else
     return EventHandlerResult::OK;
