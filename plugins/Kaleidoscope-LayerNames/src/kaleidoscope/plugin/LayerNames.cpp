@@ -32,10 +32,12 @@ EventHandlerResult LayerNames::onNameQuery() {
 }
 
 EventHandlerResult LayerNames::onFocusEvent(const char *command) {
-  if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("keymap.layerNames"));
+  const char *cmd_layerNames = PSTR("keymap.layerNames");
 
-  if (strcmp_P(command, PSTR("keymap.layerNames")) != 0)
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(cmd_layerNames);
+
+  if (strcmp_P(command, cmd_layerNames) != 0)
     return EventHandlerResult::OK;
 
   if (::Focus.isEOL()) {

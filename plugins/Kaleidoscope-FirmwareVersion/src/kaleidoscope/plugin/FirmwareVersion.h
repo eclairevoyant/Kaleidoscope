@@ -32,10 +32,12 @@ namespace plugin {
 class FirmwareVersion : public Plugin {
  public:
   EventHandlerResult onFocusEvent(const char *command) {
-    if (::Focus.isHelp(command))
-      return ::Focus.printHelp(PSTR("version"));
+    const char *cmd_version = PSTR("version");
 
-    if (strcmp_P(command, PSTR("version")) != 0)
+    if (::Focus.isHelp(command))
+      return ::Focus.printHelp(cmd_version);
+
+    if (strcmp_P(command, cmd_version) != 0)
       return EventHandlerResult::OK;
 
 #ifdef KALEIDOSCOPE_FIRMWARE_VERSION

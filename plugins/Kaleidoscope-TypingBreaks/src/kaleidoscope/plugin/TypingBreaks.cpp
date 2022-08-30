@@ -148,24 +148,27 @@ EventHandlerResult TypingBreaks::onFocusEvent(const char *command) {
     RIGHT_MAX,
   } subCommand;
 
+  const char *cmd_idleTimeLimit = PSTR("typingbreaks.idleTimeLimit");
+  const char *cmd_lockTimeOut = PSTR("typingbreaks.lockTimeOut");
+  const char *cmd_lockLength = PSTR("typingbreaks.lockLength");
+  const char *cmd_leftMaxKeys = PSTR("typingbreaks.leftMaxKeys");
+  const char *cmd_rightMaxKeys = PSTR("typingbreaks.rightMaxKeys");
   if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("typingbreaks.idleTimeLimit"),
-                             PSTR("typingbreaks.lockTimeOut"),
-                             PSTR("typingbreaks.lockLength"),
-                             PSTR("typingbreaks.leftMaxKeys"),
-                             PSTR("typingbreaks.rightMaxKeys"));
+    return ::Focus.printHelp(cmd_idleTimeLimit,
+                             cmd_lockTimeOut,
+                             cmd_lockLength,
+                             cmd_leftMaxKeys,
+                             cmd_rightMaxKeys);
 
-  if (strncmp_P(command, PSTR("typingbreaks."), 13) != 0)
-    return EventHandlerResult::OK;
-  if (strcmp_P(command + 13, PSTR("idleTimeLimit")) == 0)
+  if (strcmp_P(command, cmd_idleTimeLimit) == 0)
     subCommand = IDLE_TIME_LIMIT;
-  else if (strcmp_P(command + 13, PSTR("lockTimeOut")) == 0)
+  else if (strcmp_P(command, cmd_lockTimeOut) == 0)
     subCommand = LOCK_TIMEOUT;
-  else if (strcmp_P(command + 13, PSTR("lockLength")) == 0)
+  else if (strcmp_P(command, cmd_lockLength) == 0)
     subCommand = LOCK_LENGTH;
-  else if (strcmp_P(command + 13, PSTR("leftMaxKeys")) == 0)
+  else if (strcmp_P(command, cmd_leftMaxKeys) == 0)
     subCommand = LEFT_MAX;
-  else if (strcmp_P(command + 13, PSTR("rightMaxKeys")) == 0)
+  else if (strcmp_P(command, cmd_rightMaxKeys) == 0)
     subCommand = RIGHT_MAX;
   else
     return EventHandlerResult::OK;

@@ -33,41 +33,44 @@ EventHandlerResult LayerFocus::onNameQuery() {
 }
 
 EventHandlerResult LayerFocus::onFocusEvent(const char *command) {
+  const char *cmd_activate = PSTR("layer.activate");
+  const char *cmd_deactivate = PSTR("layer.deactivate");
+  const char *cmd_isActive = PSTR("layer.isActive");
+  const char *cmd_moveTo = PSTR("layer.moveTo");
+  const char *cmd_state = PSTR("layer.state");
+
   if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("layer.activate"),
-                             PSTR("layer.deactivate"),
-                             PSTR("layer.isActive"),
-                             PSTR("layer.moveTo"),
-                             PSTR("layer.state"));
+    return ::Focus.printHelp(cmd_activate,
+                             cmd_deactivate,
+                             cmd_isActive,
+                             cmd_moveTo,
+                             cmd_state);
 
-  if (strncmp_P(command, PSTR("layer."), 6) != 0)
-    return EventHandlerResult::OK;
-
-  if (strcmp_P(command + 6, PSTR("activate")) == 0) {
+  if (strcmp_P(command, cmd_activate) == 0) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Layer.activate(layer);
     }
-  } else if (strcmp_P(command + 6, PSTR("deactivate")) == 0) {
+  } else if (strcmp_P(command, cmd_deactivate) == 0) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Layer.deactivate(layer);
     }
-  } else if (strcmp_P(command + 6, PSTR("isActive")) == 0) {
+  } else if (strcmp_P(command, cmd_isActive) == 0) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Focus.send(::Layer.isActive(layer));
     }
-  } else if (strcmp_P(command + 6, PSTR("moveTo")) == 0) {
+  } else if (strcmp_P(command, cmd_moveTo) == 0) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Layer.move(layer);
     }
-  } else if (strcmp_P(command + 6, PSTR("state")) == 0) {
+  } else if (strcmp_P(command, cmd_state) == 0) {
     if (::Focus.isEOL()) {
       for (uint8_t i = 0; i < 32; i++) {
         ::Focus.send(::Layer.isActive(i) ? 1 : 0);
@@ -83,6 +86,8 @@ EventHandlerResult LayerFocus::onFocusEvent(const char *command) {
           ::Layer.activate(i);
       }
     }
+  } else {
+    return EventHandlerResult::OK;
   }
 
   return EventHandlerResult::EVENT_CONSUMED;

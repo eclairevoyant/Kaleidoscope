@@ -78,14 +78,18 @@ EventHandlerResult FocusSerial::afterEachCycle() {
 }
 
 EventHandlerResult FocusSerial::onFocusEvent(const char *command) {
-  if (isHelp(command))
-    return printHelp(PSTR("help"), PSTR("device.reset"), PSTR("plugins"));
+  const char *cmd_help = PSTR("help");
+  const char *cmd_reset = PSTR("device.reset");
+  const char *cmd_plugins = PSTR("plugins");
 
-  if (strcmp_P(command, PSTR("device.reset")) == 0) {
+  if (isHelp(command))
+    return printHelp(cmd_help, cmd_reset, cmd_plugins);
+
+  if (strcmp_P(command, cmd_reset) == 0) {
     Runtime.device().rebootBootloader();
     return EventHandlerResult::EVENT_CONSUMED;
   }
-  if (strcmp_P(command, PSTR("plugins")) == 0) {
+  if (strcmp_P(command, cmd_plugins) == 0) {
     kaleidoscope::Hooks::onNameQuery();
     return EventHandlerResult::EVENT_CONSUMED;
   }

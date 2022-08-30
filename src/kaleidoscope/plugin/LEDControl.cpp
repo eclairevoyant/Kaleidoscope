@@ -224,24 +224,28 @@ EventHandlerResult FocusLEDCommand::onFocusEvent(const char *command) {
   if (!Runtime.has_leds)
     return EventHandlerResult::OK;
 
-  if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("led.at"),
-                             PSTR("led.setAll"),
-                             PSTR("led.mode"),
-                             PSTR("led.brightness"),
-                             PSTR("led.theme"));
+  const char *cmd_at = PSTR("led.at");
+  const char *cmd_setAll = PSTR("led.setAll");
+  const char *cmd_mode = PSTR("led.mode");
+  const char *cmd_brightness = PSTR("led.brightness");
+  const char *cmd_theme = PSTR("led.theme");
 
-  if (strncmp_P(command, PSTR("led."), 4) != 0)
-    return EventHandlerResult::OK;
-  if (strcmp_P(command + 4, PSTR("at")) == 0)
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(cmd_at,
+                             cmd_setAll,
+                             cmd_mode,
+                             cmd_brightness,
+                             cmd_theme);
+
+  if (strcmp_P(command, cmd_at) == 0)
     subCommand = AT;
-  else if (strcmp_P(command + 4, PSTR("setAll")) == 0)
+  else if (strcmp_P(command, cmd_setAll) == 0)
     subCommand = SETALL;
-  else if (strcmp_P(command + 4, PSTR("mode")) == 0)
+  else if (strcmp_P(command, cmd_mode) == 0)
     subCommand = MODE;
-  else if (strcmp_P(command + 4, PSTR("theme")) == 0)
+  else if (strcmp_P(command, cmd_theme) == 0)
     subCommand = THEME;
-  else if (strcmp_P(command + 4, PSTR("brightness")) == 0)
+  else if (strcmp_P(command, cmd_brightness) == 0)
     subCommand = BRIGHTNESS;
   else
     return EventHandlerResult::OK;
