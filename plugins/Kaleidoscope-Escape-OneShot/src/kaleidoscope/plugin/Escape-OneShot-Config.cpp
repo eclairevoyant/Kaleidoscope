@@ -49,10 +49,11 @@ EventHandlerResult EscapeOneShotConfig::onNameQuery() {
 }
 
 EventHandlerResult EscapeOneShotConfig::onFocusEvent(const char *command) {
+  const char *cmd_cancel_key = PSTR("escape_oneshot.cancel_key");
   if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("escape_oneshot.cancel_key"));
+    return ::Focus.printHelp(cmd_cancel_key);
 
-  if (strcmp_P(command, PSTR("escape_oneshot.cancel_key")) != 0)
+  if (strcmp_P(command, cmd_cancel_key) != 0)
     return EventHandlerResult::OK;
 
   if (::Focus.isEOL()) {
