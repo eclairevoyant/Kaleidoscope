@@ -216,16 +216,18 @@ EventHandlerResult FocusEEPROMCommand::onFocusEvent(const char *command) {
     ERASE,
   } sub_command;
 
-  if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("eeprom.contents"),
-                             PSTR("eeprom.free"),
-                             PSTR("eeprom.erase"));
+  const char *cmd_contents = PSTR("eeprom.contents");
+  const char *cmd_free = PSTR("eeprom.free");
+  const char *cmd_erase = PSTR("eeprom.erase");
 
-  if (strcmp_P(command, PSTR("eeprom.contents")) == 0)
+  if (::Focus.isHelp(command))
+    return ::Focus.printHelp(cmd_contents, cmd_free, cmd_erase);
+
+  if (strcmp_P(command, cmd_contents) == 0)
     sub_command = CONTENTS;
-  else if (strcmp_P(command, PSTR("eeprom.free")) == 0)
+  else if (strcmp_P(command, cmd_free) == 0)
     sub_command = FREE;
-  else if (strcmp_P(command, PSTR("eeprom.erase")) == 0)
+  else if (strcmp_P(command, cmd_erase) == 0)
     sub_command = ERASE;
   else
     return EventHandlerResult::OK;

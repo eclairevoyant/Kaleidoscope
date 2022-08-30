@@ -102,14 +102,14 @@ void EEPROMKeymap::dumpKeymap(uint8_t layers, Key (*getkey)(uint8_t, KeyAddr)) {
 }
 
 EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
+  const char *cmd_custom = PSTR("keymap.custom");
+  const char *cmd_default = PSTR("keymap.default");
+  const char *cmd_onlyCustom = PSTR("keymap.onlyCustom");
+
   if (::Focus.isHelp(command))
-    return ::Focus.printHelp(PSTR("keymap.custom"), PSTR("keymap.default"),
-                             PSTR("keymap.onlyCustom"));
+    return ::Focus.printHelp(cmd_custom, cmd_default, cmd_onlyCustom);
 
-  if (strncmp_P(command, PSTR("keymap."), 7) != 0)
-    return EventHandlerResult::OK;
-
-  if (strcmp_P(command + 7, PSTR("onlyCustom")) == 0) {
+  if (strcmp_P(command, cmd_onlyCustom) == 0) {
     if (::Focus.isEOL()) {
       ::Focus.send((uint8_t)::EEPROMSettings.ignoreHardcodedLayers());
     } else {
@@ -129,7 +129,7 @@ EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
     return EventHandlerResult::EVENT_CONSUMED;
   }
 
-  if (strcmp_P(command + 7, PSTR("default")) == 0) {
+  if (strcmp_P(command, cmd_default) == 0) {
     // By using a cast to the appropriate function type,
     // tell the compiler which overload of getKeyFromPROGMEM
     // we actully want.
@@ -139,7 +139,7 @@ EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
     return EventHandlerResult::EVENT_CONSUMED;
   }
 
-  if (strcmp_P(command + 7, PSTR("custom")) != 0)
+  if (strcmp_P(command, cmd_custom) != 0)
     return EventHandlerResult::OK;
 
   if (::Focus.isEOL()) {
