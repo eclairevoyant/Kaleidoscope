@@ -51,16 +51,16 @@ class SideFlash : public kaleidoscope::Plugin {
     } sub_command;
     uint8_t address = 0;
 
-    if (strcmp_P(command, cmd_flash_left) == 0) {
+    if (::Focus.inputMatchesCommand(command, cmd_flash_left)) {
       sub_command = FLASH;
       address     = left_boot_address;
-    } else if (strcmp_P(command, cmd_flash_right) == 0) {
+    } else if (::Focus.inputMatchesCommand(command, cmd_flash_right)) {
       sub_command = FLASH;
       address     = right_boot_address;
-    } else if (strcmp_P(command, cmd_verify_left) == 0) {
+    } else if (::Focus.inputMatchesCommand(command, cmd_verify_left)) {
       sub_command = VERIFY;
       address     = left_boot_address;
-    } else if (strcmp_P(command, cmd_verify_right) == 0) {
+    } else if (::Focus.inputMatchesCommand(command, cmd_verify_right)) {
       sub_command = VERIFY;
       address     = right_boot_address;
     } else {

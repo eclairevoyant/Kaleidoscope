@@ -50,7 +50,7 @@ class FocusTestCommand : public Plugin {
     if (::Focus.inputMatchesHelp(command))
       return ::Focus.printHelp(PSTR("test"));
 
-    if (strcmp_P(command, cmd) == 0) {
+    if (::Focus.inputMatchesCommand(command, cmd)) {
       ::Focus.send(F("ok!"));
       return EventHandlerResult::EVENT_CONSUMED;
     }

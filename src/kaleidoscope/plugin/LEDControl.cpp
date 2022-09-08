@@ -16,7 +16,7 @@
 
 #include "kaleidoscope/plugin/LEDControl.h"
 
-#include <Arduino.h>                   // for PSTR, strcmp_P, strncmp_P
+#include <Arduino.h>                   // for PSTR, strncmp_P
 #include <Kaleidoscope-FocusSerial.h>  // for Focus, FocusSerial
 
 #include "kaleidoscope/KeyAddrMap.h"               // for KeyAddrMap<>::Iterator, KeyAddrMap
@@ -237,15 +237,15 @@ EventHandlerResult FocusLEDCommand::onFocusEvent(const char *command) {
                              cmd_brightness,
                              cmd_theme);
 
-  if (strcmp_P(command, cmd_at) == 0)
+  if (::Focus.inputMatchesCommand(command, cmd_at))
     subCommand = AT;
-  else if (strcmp_P(command, cmd_setAll) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_setAll))
     subCommand = SETALL;
-  else if (strcmp_P(command, cmd_mode) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_mode))
     subCommand = MODE;
-  else if (strcmp_P(command, cmd_theme) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_theme))
     subCommand = THEME;
-  else if (strcmp_P(command, cmd_brightness) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_brightness))
     subCommand = BRIGHTNESS;
   else
     return EventHandlerResult::OK;

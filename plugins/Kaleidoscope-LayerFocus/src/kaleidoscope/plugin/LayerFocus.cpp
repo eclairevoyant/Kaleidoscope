@@ -18,7 +18,7 @@
 
 #include "kaleidoscope/plugin/LayerFocus.h"
 
-#include <Arduino.h>                   // for PSTR, strcmp_P, F, __FlashStringHelper
+#include <Arduino.h>                   // for PSTR, F, __FlashStringHelper
 #include <Kaleidoscope-FocusSerial.h>  // for Focus, FocusSerial
 #include <stdint.h>                    // for uint8_t
 
@@ -46,31 +46,31 @@ EventHandlerResult LayerFocus::onFocusEvent(const char *command) {
                              cmd_moveTo,
                              cmd_state);
 
-  if (strcmp_P(command, cmd_activate) == 0) {
+  if (::Focus.inputMatchesCommand(command, cmd_activate)) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Layer.activate(layer);
     }
-  } else if (strcmp_P(command, cmd_deactivate) == 0) {
+  } else if (::Focus.inputMatchesCommand(command, cmd_deactivate)) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Layer.deactivate(layer);
     }
-  } else if (strcmp_P(command, cmd_isActive) == 0) {
+  } else if (::Focus.inputMatchesCommand(command, cmd_isActive)) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Focus.send(::Layer.isActive(layer));
     }
-  } else if (strcmp_P(command, cmd_moveTo) == 0) {
+  } else if (::Focus.inputMatchesCommand(command, cmd_moveTo)) {
     if (!::Focus.isEOL()) {
       uint8_t layer;
       ::Focus.read(layer);
       ::Layer.move(layer);
     }
-  } else if (strcmp_P(command, cmd_state) == 0) {
+  } else if (::Focus.inputMatchesCommand(command, cmd_state)) {
     if (::Focus.isEOL()) {
       for (uint8_t i = 0; i < 32; i++) {
         ::Focus.send(::Layer.isActive(i) ? 1 : 0);

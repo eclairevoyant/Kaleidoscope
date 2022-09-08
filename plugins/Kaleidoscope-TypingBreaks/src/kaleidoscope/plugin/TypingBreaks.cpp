@@ -17,7 +17,7 @@
 
 #include "kaleidoscope/plugin/TypingBreaks.h"
 
-#include <Arduino.h>                       // for PSTR, strcmp_P, F, __FlashStringHelper
+#include <Arduino.h>                       // for PSTR, F, __FlashStringHelper
 #include <Kaleidoscope-EEPROM-Settings.h>  // for EEPROMSettings
 #include <Kaleidoscope-FocusSerial.h>      // for Focus, FocusSerial
 #include <stdint.h>                        // for uint32_t, uint16_t
@@ -160,15 +160,15 @@ EventHandlerResult TypingBreaks::onFocusEvent(const char *command) {
                              cmd_leftMaxKeys,
                              cmd_rightMaxKeys);
 
-  if (strcmp_P(command, cmd_idleTimeLimit) == 0)
+  if (::Focus.inputMatchesCommand(command, cmd_idleTimeLimit))
     subCommand = IDLE_TIME_LIMIT;
-  else if (strcmp_P(command, cmd_lockTimeOut) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_lockTimeOut))
     subCommand = LOCK_TIMEOUT;
-  else if (strcmp_P(command, cmd_lockLength) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_lockLength))
     subCommand = LOCK_LENGTH;
-  else if (strcmp_P(command, cmd_leftMaxKeys) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_leftMaxKeys))
     subCommand = LEFT_MAX;
-  else if (strcmp_P(command, cmd_rightMaxKeys) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_rightMaxKeys))
     subCommand = RIGHT_MAX;
   else
     return EventHandlerResult::OK;

@@ -17,7 +17,7 @@
 
 #include "kaleidoscope/plugin/EEPROM-Settings.h"
 
-#include <Arduino.h>                   // for PSTR, strcmp_P, F, __FlashStringHelper
+#include <Arduino.h>                   // for PSTR, F, __FlashStringHelper
 #include <Kaleidoscope-FocusSerial.h>  // for Focus, FocusSerial
 #include <stdint.h>                    // for uint16_t, uint8_t
 
@@ -172,13 +172,13 @@ EventHandlerResult FocusSettingsCommand::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_defaultLayer, cmd_isValid, cmd_version, cmd_crc);
 
-  if (strcmp_P(command, cmd_defaultLayer) == 0)
+  if (::Focus.inputMatchesCommand(command, cmd_defaultLayer))
     sub_command = DEFAULT_LAYER;
-  else if (strcmp_P(command, cmd_isValid) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_isValid))
     sub_command = IS_VALID;
-  else if (strcmp_P(command, cmd_version) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_version))
     sub_command = GET_VERSION;
-  else if (strcmp_P(command, cmd_crc) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_crc))
     sub_command = GET_CRC;
   else
     return EventHandlerResult::OK;
@@ -222,11 +222,11 @@ EventHandlerResult FocusEEPROMCommand::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_contents, cmd_free, cmd_erase);
 
-  if (strcmp_P(command, cmd_contents) == 0)
+  if (::Focus.inputMatchesCommand(command, cmd_contents))
     sub_command = CONTENTS;
-  else if (strcmp_P(command, cmd_free) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_free))
     sub_command = FREE;
-  else if (strcmp_P(command, cmd_erase) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_erase))
     sub_command = ERASE;
   else
     return EventHandlerResult::OK;

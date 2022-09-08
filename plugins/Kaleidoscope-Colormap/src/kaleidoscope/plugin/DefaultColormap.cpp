@@ -81,7 +81,7 @@ EventHandlerResult DefaultColormap::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd);
 
-  if (strcmp_P(command, cmd) != 0)
+  if (!::Focus.inputMatchesCommand(command, cmd))
     return EventHandlerResult::OK;
 
   install();

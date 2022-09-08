@@ -16,7 +16,7 @@
 
 #include "kaleidoscope/plugin/DynamicMacros.h"
 
-#include <Arduino.h>                   // for delay, PSTR, strcmp_P, F, __FlashStri...
+#include <Arduino.h>                   // for delay, PSTR, F, __FlashStri...
 #include <Kaleidoscope-FocusSerial.h>  // for Focus, FocusSerial
 #include <Kaleidoscope-Ranges.h>       // for DYNAMIC_MACRO_FIRST, DYNAMIC_MACRO_LAST
 
@@ -221,7 +221,7 @@ EventHandlerResult DynamicMacros::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_map, cmd_trigger);
 
-  if (strcmp_P(command, cmd_map) == 0) {
+  if (::Focus.inputMatchesCommand(command, cmd_map)) {
     if (::Focus.isEOL()) {
       for (uint16_t i = 0; i < storage_size_; i++) {
         uint8_t b;
@@ -241,7 +241,7 @@ EventHandlerResult DynamicMacros::onFocusEvent(const char *command) {
       macro_count_ = updateDynamicMacroCache();
     }
     return EventHandlerResult::EVENT_CONSUMED;
-  } else if (strcmp_P(command, cmd_trigger) == 0) {
+  } else if (::Focus.inputMatchesCommand(command, cmd_trigger)) {
     uint8_t id = 0;
     ::Focus.read(id);
     play(id);

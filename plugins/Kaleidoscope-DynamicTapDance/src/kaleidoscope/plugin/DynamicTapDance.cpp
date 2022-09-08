@@ -17,7 +17,7 @@
 
 #include "kaleidoscope/plugin/DynamicTapDance.h"
 
-#include <Arduino.h>                       // for PSTR, F, __FlashStringHelper, strcmp_P
+#include <Arduino.h>                       // for PSTR, F, __FlashStringHelper
 #include <Kaleidoscope-EEPROM-Settings.h>  // for EEPROMSettings
 #include <Kaleidoscope-FocusSerial.h>      // for Focus, FocusSerial
 #include <stdint.h>                        // for uint16_t, uint8_t
@@ -99,7 +99,7 @@ EventHandlerResult DynamicTapDance::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_map);
 
-  if (strcmp_P(command, cmd_map) != 0)
+  if (!::Focus.inputMatchesCommand(command, cmd_map))
     return EventHandlerResult::OK;
 
   if (::Focus.isEOL()) {

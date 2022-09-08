@@ -17,7 +17,7 @@
 
 #include "kaleidoscope/plugin/AutoShift.h"  // IWYU pragma: associated
 
-#include <Arduino.h>                       // for PSTR, strcmp_P, strncmp_P
+#include <Arduino.h>                       // for PSTR
 #include <Kaleidoscope-EEPROM-Settings.h>  // for EEPROMSettings
 #include <Kaleidoscope-FocusSerial.h>      // for Focus, FocusSerial
 #include <stdint.h>                        // for uint8_t, uint16_t
@@ -61,11 +61,11 @@ EventHandlerResult AutoShiftConfig::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_enabled, cmd_timeout, cmd_categories);
 
-  if (strcmp_P(command, cmd_enabled) == 0)
+  if (::Focus.inputMatchesCommand(command, cmd_enabled))
     subCommand = ENABLED;
-  else if (strcmp_P(command, cmd_timeout) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_timeout))
     subCommand = TIMEOUT;
-  else if (strcmp_P(command, cmd_categories) == 0)
+  else if (::Focus.inputMatchesCommand(command, cmd_categories))
     subCommand = CATEGORIES;
   else
     return EventHandlerResult::OK;

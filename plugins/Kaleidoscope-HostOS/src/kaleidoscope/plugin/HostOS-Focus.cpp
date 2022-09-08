@@ -17,7 +17,7 @@
 
 #include "kaleidoscope/plugin/HostOS-Focus.h"
 
-#include <Arduino.h>                   // for PSTR, strcmp_P
+#include <Arduino.h>                   // for PSTR
 #include <Kaleidoscope-FocusSerial.h>  // for Focus, FocusSerial
 #include <stdint.h>                    // for uint8_t
 
@@ -33,7 +33,7 @@ EventHandlerResult FocusHostOSCommand::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd);
 
-  if (strcmp_P(command, cmd) != 0)
+  if (!::Focus.inputMatchesCommand(command, cmd))
     return EventHandlerResult::OK;
 
   if (::Focus.isEOL()) {

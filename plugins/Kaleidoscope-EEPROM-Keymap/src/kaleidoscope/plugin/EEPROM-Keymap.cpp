@@ -17,7 +17,7 @@
 
 #include "kaleidoscope/plugin/EEPROM-Keymap.h"
 
-#include <Arduino.h>                       // for PSTR, strcmp_P, F, __FlashStringHelper
+#include <Arduino.h>                       // for PSTR, F, __FlashStringHelper
 #include <Kaleidoscope-EEPROM-Settings.h>  // for EEPROMSettings
 #include <Kaleidoscope-FocusSerial.h>      // for Focus, FocusSerial
 #include <stdint.h>                        // for uint8_t, uint16_t
@@ -109,7 +109,7 @@ EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_custom, cmd_default, cmd_onlyCustom);
 
-  if (strcmp_P(command, cmd_onlyCustom) == 0) {
+  if (::Focus.inputMatchesCommand(command, cmd_onlyCustom)) {
     if (::Focus.isEOL()) {
       ::Focus.send((uint8_t)::EEPROMSettings.ignoreHardcodedLayers());
     } else {
@@ -129,7 +129,7 @@ EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
     return EventHandlerResult::EVENT_CONSUMED;
   }
 
-  if (strcmp_P(command, cmd_default) == 0) {
+  if (::Focus.inputMatchesCommand(command, cmd_default)) {
     // By using a cast to the appropriate function type,
     // tell the compiler which overload of getKeyFromPROGMEM
     // we actully want.
@@ -139,7 +139,7 @@ EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
     return EventHandlerResult::EVENT_CONSUMED;
   }
 
-  if (strcmp_P(command, cmd_custom) != 0)
+  if (!::Focus.inputMatchesCommand(command, cmd_custom))
     return EventHandlerResult::OK;
 
   if (::Focus.isEOL()) {

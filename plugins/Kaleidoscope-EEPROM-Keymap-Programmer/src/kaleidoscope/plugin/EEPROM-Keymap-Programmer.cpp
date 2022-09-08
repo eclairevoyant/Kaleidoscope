@@ -17,7 +17,7 @@
 
 #include "kaleidoscope/plugin/EEPROM-Keymap-Programmer.h"
 
-#include <Arduino.h>                     // for PSTR, strcmp_P
+#include <Arduino.h>                     // for PSTR
 #include <Kaleidoscope-EEPROM-Keymap.h>  // for EEPROMKeymap
 #include <Kaleidoscope-FocusSerial.h>    // for Focus, FocusSerial
 #include <stdint.h>                      // for uint16_t, uint8_t
@@ -112,7 +112,7 @@ EventHandlerResult EEPROMKeymapProgrammer::onFocusEvent(const char *command) {
   if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd);
 
-  if (strcmp_P(command, cmd) != 0)
+  if (!::Focus.inputMatchesCommand(command, cmd))
     return EventHandlerResult::OK;
 
   if (state_ == INACTIVE)

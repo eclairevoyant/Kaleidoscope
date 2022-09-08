@@ -21,7 +21,7 @@
 #define KALEIDOSCOPE_FIRMWARE_VERSION "0.0.0"
 #endif
 
-#include <Arduino.h>                            // for PSTR, F, __FlashStringHelper, strcmp_P
+#include <Arduino.h>                            // for PSTR, F, __FlashStringHelper
 #include "Kaleidoscope-FocusSerial.h"           // for Focus, FocusSerial
 #include "kaleidoscope/event_handler_result.h"  // for EventHandlerResult
 #include "kaleidoscope/plugin.h"                // for Plugin
@@ -37,7 +37,7 @@ class FirmwareVersion : public Plugin {
     if (::Focus.inputMatchesHelp(command))
       return ::Focus.printHelp(cmd_version);
 
-    if (strcmp_P(command, cmd_version) != 0)
+    if (!::Focus.inputMatchesCommand(command, cmd_version))
       return EventHandlerResult::OK;
 
 #ifdef KALEIDOSCOPE_FIRMWARE_VERSION

@@ -85,11 +85,11 @@ EventHandlerResult FocusSerial::onFocusEvent(const char *command) {
   if (inputMatchesHelp(command))
     return printHelp(cmd_help, cmd_reset, cmd_plugins);
 
-  if (strcmp_P(command, cmd_reset) == 0) {
+  if (inputMatchesCommand(command, cmd_reset)) {
     Runtime.device().rebootBootloader();
     return EventHandlerResult::EVENT_CONSUMED;
   }
-  if (strcmp_P(command, cmd_plugins) == 0) {
+  if (inputMatchesCommand(command, cmd_plugins)) {
     kaleidoscope::Hooks::onNameQuery();
     return EventHandlerResult::EVENT_CONSUMED;
   }
