@@ -48,7 +48,7 @@ class FocusTestCommand : public Plugin {
     const char *cmd = PSTR("test");
 
     if (::Focus.inputMatchesHelp(command))
-      return ::Focus.printHelp(PSTR("test"));
+      return ::Focus.printHelp(cmd);
 
     if (::Focus.inputMatchesCommand(command, cmd)) {
       ::Focus.send(F("ok!"));
