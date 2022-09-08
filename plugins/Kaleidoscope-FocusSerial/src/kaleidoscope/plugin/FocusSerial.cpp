@@ -97,6 +97,15 @@ EventHandlerResult FocusSerial::onFocusEvent(const char *command) {
   return EventHandlerResult::OK;
 }
 
+#ifndef NDEPRECATED
+bool FocusSerial::handleHelp(const char *command, const char *help_message) {
+  if (!inputMatchesHelp(command)) return false;
+
+  printHelp(help_message);
+  return true;
+}
+#endif
+
 void FocusSerial::printBool(bool b) {
   Runtime.serialPort().print((b) ? F("true") : F("false"));
 }
