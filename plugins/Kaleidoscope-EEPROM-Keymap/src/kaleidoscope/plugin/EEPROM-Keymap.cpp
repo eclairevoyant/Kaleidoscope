@@ -106,7 +106,7 @@ EventHandlerResult EEPROMKeymap::onFocusEvent(const char *command) {
   const char *cmd_default    = PSTR("keymap.default");
   const char *cmd_onlyCustom = PSTR("keymap.onlyCustom");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_custom, cmd_default, cmd_onlyCustom);
 
   if (strcmp_P(command, cmd_onlyCustom) == 0) {

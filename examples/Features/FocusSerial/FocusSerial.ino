@@ -47,7 +47,7 @@ class FocusTestCommand : public Plugin {
   EventHandlerResult onFocusEvent(const char *command) {
     const char *cmd = PSTR("test");
 
-    if (::Focus.isHelp(command))
+    if (::Focus.inputMatchesHelp(command))
       return ::Focus.printHelp(PSTR("test"));
 
     if (strcmp_P(command, cmd) == 0) {
@@ -64,7 +64,7 @@ class FocusHelpCommand : public Plugin {
   FocusHelpCommand() {}
 
   EventHandlerResult onFocusEvent(const char *command) {
-    if (::Focus.isHelp(command))
+    if (::Focus.inputMatchesHelp(command))
       return ::Focus.printHelp(PSTR("help"));
 
     return EventHandlerResult::OK;

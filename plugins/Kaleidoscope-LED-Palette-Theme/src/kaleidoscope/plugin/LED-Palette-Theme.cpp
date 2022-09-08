@@ -128,7 +128,7 @@ EventHandlerResult LEDPaletteTheme::onFocusEvent(const char *command) {
 
   const char *cmd = PSTR("palette");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd);
 
   if (strcmp_P(command, cmd) != 0)
@@ -166,7 +166,7 @@ EventHandlerResult LEDPaletteTheme::themeFocusEvent(const char *command,
   if (!Runtime.has_leds)
     return EventHandlerResult::OK;
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(expected_command);
 
   if (strcmp_P(command, expected_command) != 0)

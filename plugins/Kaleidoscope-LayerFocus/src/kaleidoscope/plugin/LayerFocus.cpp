@@ -39,7 +39,7 @@ EventHandlerResult LayerFocus::onFocusEvent(const char *command) {
   const char *cmd_moveTo     = PSTR("layer.moveTo");
   const char *cmd_state      = PSTR("layer.state");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_activate,
                              cmd_deactivate,
                              cmd_isActive,

@@ -39,15 +39,14 @@ class FocusSerial : public kaleidoscope::Plugin {
 
   __attribute__((deprecated("bla bla bla"))) bool handleHelp(const char *command,
                                                              const char *help_message) {
-    if (!isHelp(command)) return false;
+    if (!inputMatchesHelp(command)) return false;
 
     printHelp(help_message);
     return true;
   }
 
-  bool isHelp(const char *command) {
-    return strcmp_P(command, PSTR("help")) == 0;
-  }
+  bool inputMatchesHelp(const char *input);
+  bool inputMatchesCommand(const char *input, const char *expected);
 
   EventHandlerResult printHelp() {
     return EventHandlerResult::OK;

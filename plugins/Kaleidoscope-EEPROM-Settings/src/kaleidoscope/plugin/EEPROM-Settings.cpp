@@ -169,7 +169,7 @@ EventHandlerResult FocusSettingsCommand::onFocusEvent(const char *command) {
   const char *cmd_version      = PSTR("settings.version");
   const char *cmd_crc          = PSTR("settings.crc");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_defaultLayer, cmd_isValid, cmd_version, cmd_crc);
 
   if (strcmp_P(command, cmd_defaultLayer) == 0)
@@ -219,7 +219,7 @@ EventHandlerResult FocusEEPROMCommand::onFocusEvent(const char *command) {
   const char *cmd_free     = PSTR("eeprom.free");
   const char *cmd_erase    = PSTR("eeprom.erase");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_contents, cmd_free, cmd_erase);
 
   if (strcmp_P(command, cmd_contents) == 0)

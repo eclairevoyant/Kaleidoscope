@@ -82,7 +82,7 @@ EventHandlerResult FocusSerial::onFocusEvent(const char *command) {
   const char *cmd_reset   = PSTR("device.reset");
   const char *cmd_plugins = PSTR("plugins");
 
-  if (isHelp(command))
+  if (inputMatchesHelp(command))
     return printHelp(cmd_help, cmd_reset, cmd_plugins);
 
   if (strcmp_P(command, cmd_reset) == 0) {
@@ -99,6 +99,14 @@ EventHandlerResult FocusSerial::onFocusEvent(const char *command) {
 
 void FocusSerial::printBool(bool b) {
   Runtime.serialPort().print((b) ? F("true") : F("false"));
+}
+
+bool FocusSerial::inputMatchesHelp(const char *input) {
+  return inputMatchesCommand(input, PSTR("help"));
+}
+
+bool FocusSerial::inputMatchesCommand(const char *input, const char *expected) {
+  return strcmp_P(input, expected) == 0;
 }
 
 }  // namespace plugin

@@ -34,7 +34,7 @@ class FirmwareVersion : public Plugin {
   EventHandlerResult onFocusEvent(const char *command) {
     const char *cmd_version = PSTR("version");
 
-    if (::Focus.isHelp(command))
+    if (::Focus.inputMatchesHelp(command))
       return ::Focus.printHelp(cmd_version);
 
     if (strcmp_P(command, cmd_version) != 0)

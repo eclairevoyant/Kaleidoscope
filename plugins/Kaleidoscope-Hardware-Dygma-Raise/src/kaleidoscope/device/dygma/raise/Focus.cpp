@@ -44,7 +44,7 @@ EventHandlerResult Focus::onFocusEvent(const char *command) {
   const char *cmd_keyscan      = PSTR("hardware.keyscan");
   const char *cmd_crc_errors   = PSTR("hardware.crc_errors");
   const char *cmd_firmware     = PSTR("hardware.firmware");
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_version,
                              cmd_side_power,
                              cmd_side_ver,

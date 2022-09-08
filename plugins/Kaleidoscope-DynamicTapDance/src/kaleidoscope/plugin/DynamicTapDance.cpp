@@ -96,7 +96,7 @@ EventHandlerResult DynamicTapDance::onNameQuery() {
 EventHandlerResult DynamicTapDance::onFocusEvent(const char *command) {
   const char *cmd_map = PSTR("tapdance.map");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_map);
 
   if (strcmp_P(command, cmd_map) != 0)

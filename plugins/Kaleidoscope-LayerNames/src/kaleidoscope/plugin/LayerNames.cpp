@@ -34,7 +34,7 @@ EventHandlerResult LayerNames::onNameQuery() {
 EventHandlerResult LayerNames::onFocusEvent(const char *command) {
   const char *cmd_layerNames = PSTR("keymap.layerNames");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_layerNames);
 
   if (strcmp_P(command, cmd_layerNames) != 0)

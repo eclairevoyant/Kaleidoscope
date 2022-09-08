@@ -230,7 +230,7 @@ EventHandlerResult FocusLEDCommand::onFocusEvent(const char *command) {
   const char *cmd_brightness = PSTR("led.brightness");
   const char *cmd_theme      = PSTR("led.theme");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd_at,
                              cmd_setAll,
                              cmd_mode,

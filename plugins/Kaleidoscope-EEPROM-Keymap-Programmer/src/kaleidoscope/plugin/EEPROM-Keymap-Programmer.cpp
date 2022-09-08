@@ -109,7 +109,7 @@ EventHandlerResult EEPROMKeymapProgrammer::onKeyEvent(KeyEvent &event) {
 EventHandlerResult EEPROMKeymapProgrammer::onFocusEvent(const char *command) {
   const char *cmd = PSTR("keymap.toggleProgrammer");
 
-  if (::Focus.isHelp(command))
+  if (::Focus.inputMatchesHelp(command))
     return ::Focus.printHelp(cmd);
 
   if (strcmp_P(command, cmd) != 0)
